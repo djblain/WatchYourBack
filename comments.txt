@@ -18,6 +18,7 @@ Brief Description of included files:
  		- Also used to get a list of same-team pieces, or a list of antagonistic pieces
  		
 General Notes:
- - the "X" corners are included in the game as pieces of colour "X"
+ - The "X" corners are included in the game as pieces of colour "X"
  	- In this way, they are considered "enemy" pieces by the white & black pieces, hence simplifying functions
- - 
+ - GitHub has been used in this project for collaborative purposes (only between the team members)
+ - I don't know what else to put here yet...
