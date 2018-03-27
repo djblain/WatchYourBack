@@ -1,0 +1,23 @@
+### comments.txt
+# COMP30024 Artificial Intelligence
+# Watch Your Back Assignment
+# Part A
+# by Anjana Basani and Daniel Blain (Team B.A.R.D)
+
+Brief Description of included files:
+ - comments.txt: general information about the submission files
+ - parta.py: the main Python script for part A, runs via command line
+ 	- Contains functions for the "moves" and "massacre" input commands
+ - piece.py: contains the Piece class
+ 	- Piece class: stores details about a piece's colour and position, contains some methods for setting/getting position
+ - board.py: contains the Board class
+ 	- Board class: details the game board, including size and a list of pieces currently on the board
+ 		- Also includes methods regarding movement/placement/removal of pieces, resizing the board (incomplete), and printing the board
+ - team.py: contains the Team class
+ 	- Team class: will house the AI for the complete game
+ 		- Also used to get a list of same-team pieces, or a list of antagonistic pieces
+ 		
+General Notes:
+ - the "X" corners are included in the game as pieces of colour "X"
+ 	- In this way, they are considered "enemy" pieces by the white & black pieces, hence simplifying functions
+ - 
