@@ -58,6 +58,14 @@ class Board:
         else:
             print('No piece to remove!')
 
+    def get_corners(self):
+        #returns a list of the corner pieces (X)
+        c = []
+        for p in self.pieces:
+            if p.colour.capitalize() == 'X':
+                c.append(p)
+        return c
+
     def piece_is_surrounded(self, piece):
         [r, c] = piece.get_position()
         c_self = piece.colour.capitalize()
@@ -100,6 +108,13 @@ class Board:
             else:
                 return False
 
+    def piece_move_towards(self, piece, dest_row, dest_col):
+        # move a piece towards a certain position
+        if self.position_out_of_bounds(dest_row, dest_col):
+            return
+        else:
+            return
+
     def pieces_eliminate(self,colour_last):
         #eliminates surrounded pieces
         #remove pieces not of colour == colour_last
@@ -110,8 +125,6 @@ class Board:
         for p in self.pieces:
             if self.piece_is_surrounded(p):
                 self.pieces.remove(p)
-
-
 
     def print_board(self):
         # print the board row-by-row

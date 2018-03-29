@@ -27,3 +27,17 @@ class Piece:
         if row_diff + col_diff == 1:
             return True
         return False
+
+    def position_distance(self, row, column):
+        #returns this piece's distance to an indicated position
+        [my_row, my_column] = self.get_position()
+        return abs(my_row - row) + abs(my_column - column)
+
+    def distance_nearest(self, pieces_check):
+        #returns the distance to the nearest piece in pieces_check
+        dist = -1
+        for p in pieces_check:
+            if p != self:
+                [r,c] = p.get_position()
+                dist = min(dist, self.position_distance(r,c))
+        return dist

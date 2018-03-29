@@ -3,6 +3,7 @@
 from board import Board
 from team import Team
 from piece import Piece
+import massacre_agent
 
 # set up board and teams
 game_board = Board()
@@ -12,40 +13,19 @@ size = game_board.size
 
 def calculate_moves(t):
     # calculates the total no. possible moves for a given time
+    dir_check = [[0,1],[-1,0],[0,-1],[1,0]]     # directions to check
     pieces = t.get_my_pieces()
     moves = 0
     for p in pieces:
-        # check if can move or jump right
-        if t.game_board.piece_can_move(p, 0, 1):
-            moves = moves + 1
-        elif t.game_board.piece_can_move(p, 0, 2):
-            moves = moves + 1
-        # check if can move or jump left
-        if t.game_board.piece_can_move(p, 0, -1):
-            moves = moves + 1
-        elif t.game_board.piece_can_move(p, 0, -2):
-            moves = moves + 1
-        # check if can move or jump down
-        if t.game_board.piece_can_move(p, 1, 0):
-            moves = moves + 1
-        elif t.game_board.piece_can_move(p, 2, 0):
-            moves = moves + 1
-        # check if can move or jump up
-        if t.game_board.piece_can_move(p, -1, 0):
-            moves = moves + 1
-        elif t.game_board.piece_can_move(p, -2, 0):
-            moves = moves + 1
+        # check for each piece in each direction
+        for d in dir_check:
+            # check if can move
+            if t.game_board.piece_can_move(p, d[0], d[1]):
+                moves += 1
+            # if can't move, check if can jump instead
+            elif t.game_board.piece_can_move(p, d[0]*2, d[1]*2):
+                moves += 1
     return moves
-
-def massacre(t):
-    # TODO: massacre function
-    # directions to check for adjacent pieces in
-    dir_check = [[0,1],[-1,0],[0,-1],[1,0]]
-    pieces_enemy = t.get_other_pieces()     #enemy pieces
-    pieces_mine = t.get_my_pieces()         #my pieces
-
-    game_board.pieces_eliminate(t.colour)
-    print("Not done yet!")
 
 for row in range(0,size):
     # read lines from input and add pieces to the board
@@ -71,9 +51,9 @@ if command.capitalize() == "Moves":
 # "Massacre"
 if command.capitalize() == "Massacre":
     moves_count = 0
-    while (team_black.pieces_count() > 0 and moves_count < 10):
-        massacre(team_white)
+    while (team_black.pieces_count() > 0 and moves_count < 16):
+        massacre_agent.massacre(game_board,team_white,team_black)
         moves_count += 1
-    if (moves_count == 10):
-        print("Too many moves!")
+    if (moves_count == 16):
+        print("Too many moves! Aborted")
     game_board.print_board() # get rid of this later
