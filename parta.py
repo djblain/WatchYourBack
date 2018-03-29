@@ -64,7 +64,8 @@ if command.capitalize() == "Moves":
 
 # "Massacre"
 if command.capitalize() == "Massacre":
-    massacre(team_white)
+    moves_count = 0
+    while (team_black.pieces_count() > 0 and moves_count < 10):
+        massacre(team_white)
+        moves_count += 1
     game_board.print_board() # get rid of this later
-
-
