@@ -51,9 +51,10 @@ if command.capitalize() == "Moves":
 # "Massacre"
 if command.capitalize() == "Massacre":
     moves_count = 0
+    game_board.print_board()
     while (team_black.pieces_count() > 0 and moves_count < 16):
         massacre_agent.massacre(game_board,team_white,team_black)
+        game_board.print_board()
         moves_count += 1
     if (moves_count == 16):
         print("Too many moves! Aborted")
-    game_board.print_board() # get rid of this later

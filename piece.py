@@ -33,6 +33,17 @@ class Piece:
         [my_row, my_column] = self.get_position()
         return abs(my_row - row) + abs(my_column - column)
 
+    def find_nearest(self, pieces_check):
+        # returns the nearest piece in the list pieces_check to this piece
+        dist = -1
+        p_return = None
+        for p in pieces_check:
+            if p != self:
+                [r,c] = p.get_position()
+                dist = min(dist, self.position_distance(r,c))
+                p_return = p
+        return p
+
     def distance_nearest(self, pieces_check):
         #returns the distance to the nearest piece in pieces_check
         dist = -1

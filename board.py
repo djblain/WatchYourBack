@@ -29,11 +29,11 @@ class Board:
         # finds the piece located at the given position
         # returns 0 if no such piece exists
         if self.position_out_of_bounds(row, column):
-            return 0
+            return -1
         for p in self.pieces:
             if p.get_position() == [row, column]:
                 return p
-        return 0
+        return None
 
     def add_piece(self, colour, row, column):
         # adds a new piece to the given location, if it can be placed there
@@ -41,7 +41,7 @@ class Board:
             print("Can't place here, not on the board!")
             return False
         else:
-            if self.find_piece(row, column) == 0:
+            if self.find_piece(row, column) == None:
                 n = Piece(colour, row, column)
                 self.pieces.append(n)
                 return n
@@ -72,16 +72,16 @@ class Board:
         # check if horizontally surrounded first
         p_left = self.find_piece(r, c-1) # piece to the left
         p_right = self.find_piece(r, c+1) # piece to the right
-        if p_left!=0 and p_right!=0:
-            c_left = p_left.colour.captialize()
+        if type(p_left) == Piece and type(p_right) == Piece:
+            c_left = p_left.colour.capitalize()
             c_right = p_right.colour.capitalize()
             if c_left!=c_self and c_right!=c_self:
                 return True
         # check if vertically surrounded
         p_up = self.find_piece(r-1, c) # piece above
         p_down = self.find_piece(r+1, c) # piece below
-        if p_up!=0 and p_down!=0:
-            c_up = p_up.colour.captialize()
+        if type(p_up) == Piece and type(p_down) == Piece:
+            c_up = p_up.colour.capitalize()
             c_down = p_down.colour.capitalize()
             if c_up!=c_self and c_down!=c_self:
                 return True
@@ -103,7 +103,7 @@ class Board:
         if self.position_out_of_bounds(r + r_move, c + c_move):
             return False
         else:
-            if self.find_piece(r + r_move, c + c_move) == 0:
+            if self.find_piece(r + r_move, c + c_move) == None:
                 return True
             else:
                 return False
