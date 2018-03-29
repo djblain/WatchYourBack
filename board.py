@@ -57,7 +57,7 @@ class Board:
             self.pieces.remove(p)
         else:
             print('No piece to remove!')
-            
+
     def piece_is_surrounded(self, piece):
         [r, c] = piece.get_position()
         c_self = piece.colour.capitalize()
@@ -79,7 +79,15 @@ class Board:
                 return True
         # not surrounded
         return False
-    
+
+    def position_safe(self, colour, row, column):
+        #checks whether a position is safe for a piece of a given colour
+        piece_temp = Piece(colour, row, column)
+        if (piece_is_surrounded(piece_temp)):
+            return False
+        else:
+            return True
+
     def piece_can_move(self, piece, r_move, c_move):
         # checks whether the indicated piece can move to a new position
         # r_move and c_move are relative to current position
@@ -91,6 +99,18 @@ class Board:
                 return True
             else:
                 return False
+
+    def pieces_eliminate(self,colour_last):
+        #eliminates surrounded pieces
+        #remove pieces not of colour == colour_last
+        for p in self.pieces:
+            if self.piece_is_surrounded(p) and p.colour != colour_last:
+                self.pieces.remove(p)
+        #remove pieces regardless of colour
+        for p in self.pieces:
+            if self.piece_is_surrounded(p):
+                self.pieces.remove(p)
+
 
 
     def print_board(self):

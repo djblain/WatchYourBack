@@ -39,6 +39,12 @@ def calculate_moves(t):
 
 def massacre(t):
     # TODO: massacre function
+    # directions to check for adjacent pieces in
+    dir_check = [[0,1],[-1,0],[0,-1],[1,0]]
+    pieces_enemy = t.get_other_pieces()     #enemy pieces
+    pieces_mine = t.get_my_pieces()         #my pieces
+
+    game_board.pieces_eliminate(t.colour)
     print("Not done yet!")
 
 for row in range(0,size):
@@ -68,4 +74,6 @@ if command.capitalize() == "Massacre":
     while (team_black.pieces_count() > 0 and moves_count < 10):
         massacre(team_white)
         moves_count += 1
+    if (moves_count == 10):
+        print("Too many moves!")
     game_board.print_board() # get rid of this later
