@@ -4,10 +4,49 @@
 # Part A
 # by Anjana Basani and Daniel Blain (Team B.A.R.D)
 
+Discussion of Time/Space Complexities:
+ - Let "w" be white pieces, "b" be black pieces, "P" all pieces,
+   "t" be teams, "g" be generated game boards,
+   "d" be depth of search (massacre)
+ - "Moves":
+    - Time: for each piece, we check each moveable direction (constant 4)
+            then check if that piece can move by comparing desired location
+            with the location of every other piece (may have to compare twice
+            for a jump)
+            Result: time = P * 4 * P * 2 = 8*P^2
+            Therefore: O(P^2)
+    - Space: the function only considers the current state of the game,
+            so only needs to check one board, two teams, and all of the pieces
+            Result: space = P + 2*t + g
+            Therefore: O(P+t+g)
+ - "Massacre":
+    - Time: runs a search function based on Depth-first Search, with a branching
+            factor of B = w*4 (consider each white piece in each direction)
+            the depth has been limited to d=2 to avoid long computation times
+            For each check, it must compare a piece to all other pieces to check
+            if a spot is empty, resulting in B*P
+            If it fails to find an elimination sequence given d, it tries to
+            move a piece in a similar check to calculating the no. of moves,
+            i.e. +O(P^2)
+            Result: time = (B*P)^d + O(P^2) = (w*4*P)^2 + O(P^2)
+                Note: w and b are, at most, P
+                    ==> = (P*P*4)^2 + O(P^2)
+                    ==> = 16*P^4 + O(P^2)
+            Therefore: O((P^2)^d) = O(P^4) (d is set as 2)
+    - Space: when running the function, only the possible moves for a single
+            piece are considered and kept at one time, before being discarded
+            This means that for each recursion, only (at most) 4 states will be
+            kept at once
+            The complexity of a single state is, as discussed in Moves:
+                O(P+t+g)
+            Result: (4*O(P+t+g))*d = 8*O(P+t+g) (d is set as 2)
+            Therefore: O(P+t+g)
+
 Brief Description of included files:
  - comments.txt: general information about the submission files
  - parta.py: the main Python script for part A, runs via command line
  	- Contains functions for the "moves" and "massacre" input commands
+ - massacre_agent.py: contains functions for computing a massacre
  - piece.py: contains the Piece class
  	- Piece class: stores details about a piece's colour and position, contains some methods for setting/getting position
  - board.py: contains the Board class
@@ -16,8 +55,7 @@ Brief Description of included files:
  - team.py: contains the Team class
  	- Team class: will house the AI for the complete game
  		- Also used to get a list of same-team pieces, or a list of antagonistic pieces
- 		
+
 General Notes:
  - the "X" corners are included in the game as pieces of colour "X"
  	- In this way, they are considered "enemy" pieces by the white & black pieces, hence simplifying functions
- - 

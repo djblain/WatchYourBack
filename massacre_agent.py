@@ -71,15 +71,11 @@ def find_elimination(g_board,t_attack,t_defend,depth,best_depth):
 
 
 def massacre(g_board,t_attack,t_defend):
-    # TODO: massacre function
+    # massacre function
     # directions to check for adjacent pieces, movement, etc.
     dir_check = [[0,1],[-1,0],[0,-1],[1,0]]
-    # try to find positions to move to which surround an enemy
-    s_max = -1000
     p_move = 0
     d_move = [0,0]
-    ally_begin = t_attack.pieces_count()
-    enemy_begin = t_defend.pieces_count()
     depth_limit = 2
     ally_pieces = t_attack.get_my_pieces()
     enemy_pieces = t_defend.get_my_pieces()
@@ -111,17 +107,19 @@ def massacre(g_board,t_attack,t_defend):
                         if d_new < d_current:
                             dist = d_current
                     elif (d_current < dist and d_new < d_current
-                            and d_current > depth_limit):
+                            and d_current > 1):
                         # movement of distant piece towards
-                        # a non-adjacent enemy outside the depth_limit
+                        # the selected enemy
                         p_move = p
                         d_move = d
                         dist = d_current
     else:
+        # elimination sequence found, note piece to move and direction
         p_move = move[0]
         d_move = move[1]
     if type(p_move) != Piece:
         return False # failure, couldn't find a moveable piece
+    # move the piece
     str_out = '(' + str(p_move.row) + ', ' + str(p_move.column) + ')'
     pos = p_move.get_position()
     if g_board.piece_can_move(p_move,d_move[0],d_move[1]):
@@ -131,5 +129,5 @@ def massacre(g_board,t_attack,t_defend):
     g_board.pieces_eliminate(t_attack.colour)
     str_out += ' -> '
     str_out += '(' + str(p_move.row) + ', ' + str(p_move.column) + ')'
-    print(str_out)
+    print(str_out)      # output movement
     return True # managed to move a piece
