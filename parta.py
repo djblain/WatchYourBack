@@ -51,10 +51,14 @@ if command.capitalize() == "Moves":
 # "Massacre"
 if command.capitalize() == "Massacre":
     moves_count = 0
-    game_board.print_board()
-    while (team_black.pieces_count() > 0 and moves_count < 32):
-        massacre_agent.massacre(game_board,team_white,team_black)
-        game_board.print_board()
+    #game_board.print_board()   # show starting board (DEBUG)
+    success = True
+    while (team_black.pieces_count() > 0 and moves_count < 50):
+        success = massacre_agent.massacre(game_board,team_white,team_black)
+        #game_board.print_board()   # show updated board (DEBUG)
         moves_count += 1
-    if (moves_count == 32):
+        if success == False:
+            print("FAILURE: UNABLE TO MOVE")
+            break
+    if (moves_count == 50 and team_black.pieces_count() > 0):
         print("Too many moves! Aborted")
