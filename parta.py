@@ -60,5 +60,6 @@ if command.capitalize() == "Massacre":
         if success == False:
             print("FAILURE: UNABLE TO MOVE")
             break
+    #print(moves_count)     # show total no. of moves (DEBUG)
     if (moves_count == 50 and team_black.pieces_count() > 0):
         print("Too many moves! Aborted")
